@@ -1,1 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Mini Spreadsheet</title>
+<style>
+body{
+  background:#0f0f0f;
+  color:white;
+  font-family:Arial;
+  text-align:center;
+}
+table{
+  border-collapse: collapse;
+  margin:auto;
+}
+td, th{
+  border:1px solid #444;
+  width:120px;
+  height:35px;
+  text-align:center;
+}
+td input{
+  width:100%;
+  height:100%;
+  border:none;
+  background:transparent;
+  color:white;
+  text-align:center;
+}
+</style>
+</head>
+<body>
 
+<h1>Mini Spreadsheet 🚀</h1>
+<table id="sheet">
+  <thead>
+    <tr>
+      <th></th>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
+      <th>D</th>
+    </tr>
+  </thead>
+  <tbody id="body"></tbody>
+</table>
+
+<script>
+const rows = 20;
+const cols = 4;
+const body = document.getElementById("body");
+
+for(let r=1;r<=rows;r++){
+  let tr = document.createElement("tr");
+  let th = document.createElement("th");
+  th.innerText = r;
+  tr.appendChild(th);
+
+  for(let c=0;c<cols;c++){
+    let td = document.createElement("td");
+    let input = document.createElement("input");
+    input.value = localStorage.getItem("cell_"+r+"_"+c) || "";
+    input.addEventListener("input", ()=>{
+      localStorage.setItem("cell_"+r+"_"+c, input.value);
+    });
+    td.appendChild(input);
+    tr.appendChild(td);
+  }
+
+  body.appendChild(tr);
+}
+</script>
+
+</body>
+</html>
